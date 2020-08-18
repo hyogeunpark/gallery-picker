@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:transitionGroup="true">
+
+    <com.babitalk.android.gallerypicker.view.SquareImageView
+        android:id="@+id/image_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:scaleType="centerCrop"
+        android:transitionName="@string/app_name"
+        android:clickable="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/selected_image_count_bg"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#90000000"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="@+id/image_view"
+        app:layout_constraintBottom_toBottomOf="@+id/image_view"
+        app:layout_constraintStart_toStartOf="@+id/image_view"
+        app:layout_constraintEnd_toEndOf="@+id/image_view" />
+
+    <FrameLayout
+        android:id="@+id/image_detail_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:padding="6dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="21dp"
+            android:layout_height="21dp"
+            android:background="@drawable/shape_image_full_screen_bg"
+            android:src="@drawable/ic_baseline_fullscreen_24" />
+    </FrameLayout>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/select_count"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_margin="6dp"
+        android:background="@drawable/selector_image_number_bg"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/select_image_bg"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/selector_row_image_bg"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
