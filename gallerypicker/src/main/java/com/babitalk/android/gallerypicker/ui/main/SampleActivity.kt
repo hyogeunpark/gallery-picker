@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.babitalk.android.gallerypicker.common.BaseActivity
-import com.babitalk.android.gallerypicker.common.loadUri
+import com.babitalk.android.gallerypicker.ui.common.loadUri
 import com.babitalk.android.gallerypicker.databinding.ActivityMainBinding
 import com.babitalk.android.gallerypicker.databinding.RowResultImageViewBinding
 import com.babitalk.android.gallerypicker.ui.gallery.EXTRA_SELECT_IMAGE

@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.viewbinding.ViewBinding
 import com.babitalk.android.gallerypicker.R
+import com.babitalk.android.gallerypicker.ui.common.toColor
 
 abstract class BaseActivity<T : ViewBinding>: AppCompatActivity() {
     protected val binding: T by lazy { createViewBinding() }

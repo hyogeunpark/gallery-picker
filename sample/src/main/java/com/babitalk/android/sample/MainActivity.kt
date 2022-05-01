@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
-import com.babitalk.android.gallerypicker.common.loadUri
+import com.babitalk.android.gallerypicker.ui.common.loadUri
 import com.babitalk.android.gallerypicker.ui.gallery.EXTRA_SELECT_IMAGE
 import com.babitalk.android.gallerypicker.ui.gallery.GalleryPickerActivity
 import com.babitalk.android.sample.databinding.ActivityMainBinding

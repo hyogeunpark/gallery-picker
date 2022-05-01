@@ -2,14 +2,12 @@ package com.babitalk.android.gallerypicker.ui.gallery
 
 import android.app.Activity
 import android.content.Intent
-import android.graphics.Color
 import android.net.Uri
 import android.view.View
 import androidx.core.app.ActivityOptionsCompat
 import com.babitalk.android.gallerypicker.GalleryPickerApplication
 import com.babitalk.android.gallerypicker.R
 import com.babitalk.android.gallerypicker.common.BaseActivity
-import com.babitalk.android.gallerypicker.common.toColor
 import com.babitalk.android.gallerypicker.databinding.ActivityGalleryImageDetailBinding
 import com.babitalk.android.gallerypicker.model.Image
 import com.google.android.material.snackbar.Snackbar

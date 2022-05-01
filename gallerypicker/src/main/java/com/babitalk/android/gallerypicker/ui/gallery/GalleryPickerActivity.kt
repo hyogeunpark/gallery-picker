@@ -11,7 +11,6 @@ import android.net.Uri
 import android.os.Build
 import android.os.Handler
 import android.provider.MediaStore
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
@@ -28,11 +27,12 @@ import androidx.recyclerview.widget.RecyclerView.ItemDecoration
 import com.babitalk.android.gallerypicker.GalleryPickerApplication
 import com.babitalk.android.gallerypicker.R
 import com.babitalk.android.gallerypicker.common.BaseActivity
-import com.babitalk.android.gallerypicker.common.collapse
-import com.babitalk.android.gallerypicker.common.dpToPx
-import com.babitalk.android.gallerypicker.common.fromHtml
+import com.babitalk.android.gallerypicker.ui.common.collapse
+import com.babitalk.android.gallerypicker.ui.common.dpToPx
+import com.babitalk.android.gallerypicker.ui.common.fromHtml
 import com.babitalk.android.gallerypicker.databinding.ActivityGalleryPickerBinding
 import com.babitalk.android.gallerypicker.model.Image
+import com.babitalk.android.gallerypicker.ui.common.changeBoundsAnimation
 import com.babitalk.android.gallerypicker.ui.gallery.viewmodel.GalleryViewModel
 import com.google.android.material.snackbar.Snackbar
 import java.util.*
@@ -60,7 +60,7 @@ class GalleryPickerActivity : BaseActivity<ActivityGalleryPickerBinding>() {
 
     private val spanCount by lazy { (intent?.getIntExtra("span_count", 3) ?: 3).also { viewModel.spanCount = it } }
     private val maxCount by lazy { intent?.getIntExtra("max_count", Integer.MAX_VALUE) ?: Integer.MAX_VALUE }
-    private val viewModel by lazy { ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(GalleryViewModel::class.java) }
+    private val viewModel by lazy { ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[GalleryViewModel::class.java] }
     private val selectedImageAdapter by lazy { SelectedImageRecyclerAdapter(viewModel) }
     private val imageAdapter by lazy { ImageRecyclerAdapter(viewModel) }
     private val contentObserver = object : ContentObserver(Handler()) {
@@ -122,7 +122,7 @@ class GalleryPickerActivity : BaseActivity<ActivityGalleryPickerBinding>() {
             val images = viewModel.selectedImages.value
                 ?.filter { it.imagePath != null }
                 ?.map { it.imagePath!! }
-                ?.toCollection(ArrayList<Uri>()) ?: return@setOnClickListener
+                ?.toCollection(ArrayList()) ?: return@setOnClickListener
 
             val intent = Intent().apply { putParcelableArrayListExtra(EXTRA_SELECT_IMAGE, images) }
             setResult(Activity.RESULT_OK, intent)
@@ -138,7 +138,6 @@ class GalleryPickerActivity : BaseActivity<ActivityGalleryPickerBinding>() {
         })
 
         viewModel.selectedImages.observe(this, Observer { images ->
-            Log.i("PHG", "images = $images")
             val count = images.count()
             binding.sendButton.isEnabled = count > 0
             binding.sendButton.text = if (count == 0) {
@@ -150,25 +149,22 @@ class GalleryPickerActivity : BaseActivity<ActivityGalleryPickerBinding>() {
             }
             // show/hide selected image list
             selectedImageAdapter.submitList(images.toList()) {
+                binding.selectedImageRecyclerView.changeBoundsAnimation()
                 if (count == 0) {
-                    binding.selectedImageRecyclerView.collapse()
+                    binding.selectedImageRecyclerView.visibility = View.GONE
                 } else {
-                    // TODO : animation 추가하기
-                    binding.selectedImageRecyclerView.clearAnimation()
-                    binding.selectedImageRecyclerView.layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
-                    binding.selectedImageRecyclerView.requestLayout()
                     binding.selectedImageRecyclerView.visibility = View.VISIBLE
                 }
             }
         })
 
-        viewModel.showMessage.observe(this, Observer { message ->
+        viewModel.showMessage.observe(this) { message ->
             Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT).show()
-        })
+        }
 
-        viewModel.moveToImageDetail.observe(this, Observer { (image, count, transitionView) ->
+        viewModel.moveToImageDetail.observe(this) { (image, count, transitionView) ->
             GalleryImageDetailActivity.newInstance(this, image, count, maxCount, transitionView)
-        })
+        }
 
         GalleryPickerApplication.sContext.contentResolver.registerContentObserver(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, true, contentObserver)
     }

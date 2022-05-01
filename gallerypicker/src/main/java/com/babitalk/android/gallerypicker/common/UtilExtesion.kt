@@ -1,6 +1,5 @@
-package com.babitalk.android.gallerypicker.common
+package com.babitalk.android.gallerypicker.ui.common
 
-import android.animation.ValueAnimator
 import android.net.Uri
 import android.os.Build
 import android.text.Html
@@ -12,6 +11,8 @@ import android.view.animation.Animation
 import android.view.animation.Transformation
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
+import androidx.transition.ChangeBounds
+import androidx.transition.TransitionManager
 import com.babitalk.android.gallerypicker.GalleryPickerApplication
 
 fun Int.toColor() = ContextCompat.getColor(GalleryPickerApplication.sContext, this)
@@ -82,4 +83,8 @@ fun View.collapse() {
     // Collapse speed of 1dp/ms
     a.duration = (initialHeight / this@collapse.context.resources.displayMetrics.density).toLong() * 4
     this@collapse.startAnimation(a)
+}
+
+fun View.changeBoundsAnimation() {
+    TransitionManager.beginDelayedTransition(this.rootView as ViewGroup, ChangeBounds())
 }

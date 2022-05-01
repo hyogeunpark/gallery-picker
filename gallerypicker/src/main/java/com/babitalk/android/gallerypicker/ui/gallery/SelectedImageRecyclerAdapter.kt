@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.babitalk.android.gallerypicker.common.loadUri
+import com.babitalk.android.gallerypicker.ui.common.loadUri
 import com.babitalk.android.gallerypicker.databinding.RowSelectedImageViewBinding
 import com.babitalk.android.gallerypicker.model.Image
 import com.babitalk.android.gallerypicker.ui.gallery.viewmodel.GalleryViewModel
